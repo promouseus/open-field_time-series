@@ -1,0 +1,13 @@
+version: '3.4'
+services:
+
+  iotdb:
+    build: iotdb
+
+  iotdb-grafana:
+    build: iotdb-grafana
+ 
+  grafana:
+    build: grafana
+    ports:
+        - "127.0.0.1:3000:3000"
