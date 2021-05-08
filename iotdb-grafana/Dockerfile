@@ -11,6 +11,7 @@ FROM openjdk:11-jre-slim
 RUN apt-get -q update; apt-get -qq install curl
 WORKDIR /iotdb-grafana
 COPY --from=builder /iotdb/grafana/target/iotdb-grafana-*.war iotdb-grafana.war
+COPY --from=builder /iotdb/grafana/src/main/resources/application.properties .
 # https://docs.docker.com/engine/reference/builder/#healthcheck
 EXPOSE 8888
 HEALTHCHECK --interval=10s --timeout=3s \
