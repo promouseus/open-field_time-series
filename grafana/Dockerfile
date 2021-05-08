@@ -7,7 +7,7 @@ RUN openssl req -nodes -newkey rsa:4096 -x509 -keyout /etc/ssl/private/server.ke
 # Bases on: https://github.com/apache/iotdb/tree/master/docker/src/main
 FROM grafana/grafana:latest
 COPY iotdb.yaml /etc/grafana/provisioning/datasources/iotdb.yaml
-COPY --from=builder --chown=grafana /etc/ssl/private/server.* /etc/ssl/private/
+COPY --from=builder --chown=grafana:root /etc/ssl/private/server.* /etc/ssl/private/
 
 ENV GF_DEFAULT_INSTANCE_NAME=open-field_time-series
 
