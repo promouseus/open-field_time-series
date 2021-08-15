@@ -1,0 +1,16 @@
+version: '3.4'
+services:
+
+  iotdb:
+    container_name: iotdb
+    build: iotdb
+
+  iotdb-grafana:
+    container_name: iotdb-grafana
+    build: iotdb-grafana
+ 
+  grafana:
+    container_name: grafana
+    build: grafana
+    ports:
+        - "0.0.0.0:443:3000"
