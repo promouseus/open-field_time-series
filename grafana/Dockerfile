@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 FROM debian AS builder
 RUN apt-get update; apt-get -y install openssl
-# Generated self signed SSL so Grafana can run as TLS/H2 always!
+# Generated (UNSAFE!) self signed SSL so Grafana can run as TLS/H2 always!
 RUN openssl req -nodes -newkey rsa:4096 -x509 -keyout /etc/ssl/private/server.key -out /etc/ssl/private/server.crt -days 3654 -subj "/C=NL/ST=Noord-Holland/L=Zaanstad/O=Promouseus/OU=open-field/CN=open-field.local/emailAddress=noreply@open-field.local"
 
 # Bases on: https://github.com/apache/iotdb/tree/master/docker/src/main
