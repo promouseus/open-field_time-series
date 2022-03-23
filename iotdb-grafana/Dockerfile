@@ -8,7 +8,11 @@ RUN apt-get -q update; apt-get -qq install git \
     && mvn --quiet clean package -pl grafana -am -Dmaven.test.skip=true
 
 FROM openjdk:11-jre-slim
-RUN apt-get -q update; apt-get -qq install curl
+RUN apt-get -q update; apt-get -qq install curl \
+  && apt autoremove -y \
+  && apt purge --auto-remove -y \
+  && apt clean -y
+
 WORKDIR /iotdb-grafana
 COPY --from=builder /iotdb/grafana/target/iotdb-grafana-*.war iotdb-grafana.war
 COPY --from=builder /iotdb/grafana/src/main/resources/application.properties .

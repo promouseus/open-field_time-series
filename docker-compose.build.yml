@@ -4,6 +4,8 @@ services:
   iotdb:
     container_name: iotdb
     build: iotdb
+    ports:
+        - "127.0.0.1:18080:18080"
 
   iotdb-grafana:
     container_name: iotdb-grafana
