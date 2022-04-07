@@ -1,6 +1,7 @@
 #!/bin/bash
-DOCKER_HOST=tcp://localhost:9001
+export DOCKER_HOST=tcp://localhost:9001
 iotdbCli='docker exec -it iotdb /iotdb/sbin/start-cli.sh -h 127.0.0.1 -p 6667 -u root -pw root'
+#iotdbCli='/iotdb/sbin/start-cli.sh -h 127.0.0.1 -p 6667 -u root -pw root'
 
 # Create Time-series
 ${iotdbCli} -e "set storage group to root.customer"
@@ -28,3 +29,15 @@ ${iotdbCli} -e "INSERT INTO root.customer.portal.ipv4.\"1.1.1.1\"(timestamp,rtt)
 #2021-12-26T17:53:01.538Z,18.93,18.93,,19.7
 #2021-12-26T17:53:26.215Z,17.1,17.1,19.47,17.66
 #2021-12-26T17:53:33.063Z,16.15,16.15,19.82,16.33
+
+
+# All files in tree ordered on change date (oldest timeline to the newest)
+# find . -name '*-*-*-*-*' -printf "%T@ %p\n"|sort -n|cut -d' ' -f2|xargs -I{} cat {} > /opt/concat.csv
+
+# Add start line to CSV for names:
+# Time,root.sentico.nl.senticall.vpbx001.cpu.user,root.sentico.nl.senticall.vpbx001.cpu.nice,root.sentico.nl.senticall.vpbx001.cpu.system,root.sentico.nl.senticall.vpbx001.cpu.idle,root.sentico.nl.senticall.vpbx001.cpu.iowait,root.sentico.nl.senticall.vpbx001.cpu.irq,root.sentico.nl.senticall.vpbx001.cpu.softirq,root.sentico.nl.senticall.vpbx001.cpu.steal,root.sentico.nl.senticall.vpbx001.cpu.guest,root.sentico.nl.senticall.vpbx001.cpu.guest_nice
+
+# docker cp concat.csv iotdb:/
+# docker exec -it iotdb /bin/bash
+# export _JAVA_OPTIONS=-Xmx4096m
+# import-csv.sh -h localhosT -p 6667 -u root -pw root -f /concat.csv

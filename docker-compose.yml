@@ -4,6 +4,8 @@ services:
   iotdb:
     container_name: iotdb
     image: promouseus/open-field_time-series:iotdb
+    volumes:
+      - iotdb_data:/iotdb/data:rw
 
   iotdb-grafana:
     container_name: iotdb-grafana
@@ -14,6 +16,8 @@ services:
     image: promouseus/open-field_time-series:grafana
     ports:
         - "0.0.0.0:443:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana:rw
     #environment:
     #  - GF_SERVER_DOMAIN=portal.promouseus.nl
     #  - GF_SERVER_ENFORCE_DOMAIN=true
@@ -22,3 +26,7 @@ services:
     #  - /home/promouseus/etc/letsencrypt/live/portal.promouseus.nl/privkey.pem:/etc/ssl/private/server.key
     #  - /home/promouseus/etc/letsencrypt/live/portal.promouseus.nl/fullchain.pem:/etc/ssl/private/server.crt
       #- grafana_conf:/var/lib/grafana
+
+volumes:
+  iotdb_data:
+  grafana_data:

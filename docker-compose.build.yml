@@ -5,7 +5,9 @@ services:
     container_name: iotdb
     build: iotdb
     ports:
-        - "127.0.0.1:18080:18080"
+      - "127.0.0.1:18080:18080"
+    volumes:
+      - iotdb_data:/iotdb/data:rw
 
   iotdb-grafana:
     container_name: iotdb-grafana
@@ -15,4 +17,10 @@ services:
     container_name: grafana
     build: grafana
     ports:
-        - "0.0.0.0:443:3000"
+      - "0.0.0.0:443:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana:rw
+
+volumes:
+  iotdb_data:
+  grafana_data:
