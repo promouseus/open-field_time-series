@@ -17,7 +17,7 @@ services:
     container_name: grafana
     build: grafana
     ports:
-      - "0.0.0.0:443:3000"
+      - "127.0.0.1:443:3000"
     volumes:
       - grafana_data:/var/lib/grafana:rw
 
